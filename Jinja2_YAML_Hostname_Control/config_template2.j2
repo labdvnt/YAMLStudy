@@ -1,0 +1,19 @@
+{% for device in devices %}
+hostname {{ device.hostname }}
+interface Loopback{{ device.loopback }}
+ ip address {{ device.ip }} {{ device.netmask }}
+
+{% if device.hostname == "router1" %}
+router bgp 65001
+ bgp router-id {{ device.ip }}
+ network {{ device.ip }} mask {{ device.netmask }}
+{% elif device.hostname == "router2" %}
+ip access-list standard ALLOW-LOCAL
+ permit {{ device.ip }}
+{% elif device.hostname == "router3" %}
+interface Loopback100
+ ip address 10.10.10.1 255.255.255.255
+ description Backup Link
+{% endif %}
+
+{% endfor %}

@@ -1,0 +1,9 @@
+{% for device in devices %}
+hostname {{ device.hostname }}
+interface Loopback{{ device.loopback }}
+ ip address {{ device.ip }} {{ device.netmask }}
+{% if device.description is defined %}
+ description {{ device.description }}
+{% endif %}
+
+{% endfor %}

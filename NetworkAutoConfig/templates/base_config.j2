@@ -1,0 +1,22 @@
+{% for device in devices %}
+hostname {{ device.hostname }}
+interface Loopback{{ device.loopback }}
+ ip address {{ device.ip }} {{ device.netmask }}
+
+{% if 'bgp' in device.features %}
+{% include 'bgp_block.j2' %}
+{% endif %}
+
+{% if 'ospf' in device.features %}
+{% include 'ospf_block.j2' %}
+{% endif %}
+
+{% if 'acl' in device.features %}
+{% include 'acl_block.j2' %}
+{% endif %}
+
+{% if 'vlan' in device.features %}
+{% include 'vlan_block.j2' %}
+{% endif %}
+
+{% endfor %}

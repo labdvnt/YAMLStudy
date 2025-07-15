@@ -1,0 +1,3 @@
+router bgp 65001
+ bgp router-id {{ device.ip }}
+ network {{ device.ip }} mask {{ device.netmask }}
